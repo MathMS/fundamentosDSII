@@ -1,0 +1,41 @@
+/* Query 1 - Primeiro Slide*/
+SELECT COUNT(Track.TrackId) AS Songs, Artist.Name
+FROM Track 
+INNER JOIN Album ON Track.AlbumId = Album.AlbumId
+INNER JOIN Artist ON Album.ArtistId = Artist.ArtistId
+INNER JOIN Genre ON  Track.GenreId = Genre.GenreId
+GROUP BY Artist.ArtistId
+ORDER BY Songs DESC 
+LIMIT 5
+
+/* Query 2 - Segundo Slide*/
+SELECT COUNT(Track.TrackId) AS Songs, Album.Title, Genre.Name
+FROM Track	
+INNER JOIN Album ON Track.AlbumId = Album.AlbumId
+INNER JOIN Genre ON Track.GenreId = Genre.GenreId
+GROUP BY Track.AlbumId
+ORDER BY Songs DESC 
+LIMIT 5
+
+/* Query 3 - Terceiro Slide*/
+SELECT Genre.Name, COUNT(Invoiceline.InvoiceId) as Songs
+FROM Invoiceline
+JOIN Track ON Invoiceline.TrackId = Track.TrackId
+JOIN Genre ON Track.GenreId = Genre.GenreId
+GROUP BY Genre.Name
+ORDER BY Songs DESC
+LIMIT 5	
+
+/* Query 4 - Terceiro Slide*/
+SELECT MediaType.name,sum(InvoiceLine.Quantity * InvoiceLine.UnitPrice) as Total
+FROM MediaType
+JOIN Track ON MediaType.MediaTypeId = Track.MediaTypeId
+JOIN Genre ON Track.GenreId = Genre.GenreId
+JOIN InvoiceLine ON Track.TrackId = InvoiceLine.trackid
+JOIN Invoice ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+JOIN Customer on Invoice.CustomerId = Customer.CustomerId
+WHERE Customer.Country = 'Brazil'
+GROUP BY MediaType.Name
+ORDER BY Total DESC
+LIMIT 2
+
