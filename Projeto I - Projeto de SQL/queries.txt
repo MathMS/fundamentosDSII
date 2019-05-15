@@ -13,6 +13,8 @@ SELECT COUNT(Track.TrackId) AS Songs, Album.Title, Genre.Name
 FROM Track	
 INNER JOIN Album ON Track.AlbumId = Album.AlbumId
 INNER JOIN Genre ON Track.GenreId = Genre.GenreId
+INNER JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
+WHERE MediaType.MediaTypeId <> 3
 GROUP BY Track.AlbumId
 ORDER BY Songs DESC 
 LIMIT 5
